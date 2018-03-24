@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'chat',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -109,3 +110,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# ASGIの起点を指定
+# sys.path.append(APP_ROOT_PATH)してるからmysiteは省略できる
+ASGI_APPLICATION = 'routing.application'
