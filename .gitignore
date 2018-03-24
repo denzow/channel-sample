@@ -1,0 +1,19 @@
+application
+
+.idea/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyc
+*.py.bak
+.DS_Store
+.python-version
+.coverage
+.vscode*
+# Django stuff:
+*.log
+!.gitkeep
+.tags*
+
+*.sqlite3
