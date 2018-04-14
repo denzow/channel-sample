@@ -1,6 +1,9 @@
 # chat/consumers.py
-from channels.generic.websocket import AsyncWebsocketConsumer
 import json
+
+from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.db import database_sync_to_async
+from chat.models import ChatLog
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -43,8 +46,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive message from room group
     async def chat_message(self, event):
         message = event['message']
-
+        await self._save_message(message)
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message
         }))
+
+    @database_sync_to_async
+    def _save_message(self, message):
+        ChatLog.objects.create(
+            room_name=self.room_name,
+            message=message,
+        )
