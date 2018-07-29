@@ -16,6 +16,29 @@ services:
       - PYTHONUNBUFFERED=1
     links:
       - redis
+      - db
+
+  db:
+    image: mysql:5.6.36
+    environment:
+      - MYSQL_ROOT_PASSWORD=docker
+      - MYSQL_PASSWORD=docker
+      - MYSQL_USER=docker
+      - MYSQL_DATABASE=mydb
+    ports:
+      - "3307:3306"
+
+#  db:
+#    image: postgres:10
+#    restart: always
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - ./docker/db/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+#    environment:
+#      - POSTGRES_USER=docker
+#      - POSTGRES_PASSWORD=docker
+#      - POSTGRES_DB=mydb
 
   service_nginx:
     build:
@@ -30,4 +53,3 @@ services:
     build: ./docker/redis
     ports:
       - "6379:6379"
-
